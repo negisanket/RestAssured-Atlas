@@ -40,4 +40,8 @@ bin/
 
 ### Allure report ###
 allure-report
+
+### env_local.properties
+**/env_local.properties
+
 /gradle/shared.versions.toml
