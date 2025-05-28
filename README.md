@@ -1,6 +1,149 @@
-# atlas
+# ATLAS (Automated Testing Library for API and Selenium)
 
+ATLAS is a comprehensive test automation framework that combines both API and UI testing capabilities. Built with modern testing practices and tools, it provides a robust foundation for end-to-end testing of web applications.
 
+## Features
+
+- **API Testing**
+    - REST API automation using RestAssured
+    - Modular and reusable API components
+    - Request/Response validation
+    - Dynamic test data handling
+    - Environment configuration management
+
+- **UI Testing** (Coming Soon)
+    - Selenium WebDriver integration
+    - Page Object Model implementation
+    - Cross-browser testing support
+    - Parallel test execution
+    - Screenshot capture on failure
+
+- **Reporting & Logging**
+    - Allure reporting with detailed test execution data
+    - Test execution history
+    - Failure analysis and debugging support
+    - Custom logging implementation
+
+- **Framework Features**
+    - Java-based modular architecture
+    - Gradle build system
+    - TestNG test runner
+    - Checkstyle code quality enforcement
+    - CI/CD integration ready
+    - Environment-specific configuration
+    - Cross-platform support
+
+## Prerequisites
+
+- Java 17 or higher
+- Gradle 8.x
+- Git
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://gitlab.leegality.com/automation-tests/atlas.git
+cd atlas
+```
+
+2. Build the project:
+```bash
+./gradlew clean build
+```
+
+3. Run the tests:
+```bash
+./gradlew test
+```
+
+4. Generate Allure report:
+```bash
+./gradlew allureReport
+./gradlew allureServe
+```
+
+## Project Structure
+
+```
+atlas/
+├── src/
+│   ├── main/java/
+│   │   └── com/leegality/
+│   │       ├── api/        # API components
+│   │       ├── ui/         # UI components (coming soon)
+│   │       ├── config/     # Configuration management
+│   │       └── utils/      # Utility classes
+│   └── test/java/
+│       └── com/leegality/
+│           ├── api/        # API tests
+│           ├── ui/         # UI tests (coming soon)
+│           └── e2e/        # End-to-end tests
+├── config/
+│   └── checkstyle/        # Code style configuration
+├── gradle/                # Gradle configuration
+└── README.md
+```
+
+## Writing Tests
+
+### API Tests
+```java
+@Epic("Payment Gateway")
+@Feature("Payment Processing")
+public class PaymentTest {
+    
+    @Test
+    @Description("Verify successful payment processing")
+    @Story("TECH-123")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testPaymentProcessing() {
+        // Test implementation
+    }
+}
+```
+
+### UI Tests (Coming Soon)
+```java
+@Epic("User Management")
+@Feature("User Login")
+public class LoginTest {
+    
+    @Test
+    @Description("Verify user login with valid credentials")
+    @Story("TECH-456")
+    @Severity(SeverityLevel.BLOCKER)
+    public void testUserLogin() {
+        // Test implementation
+    }
+}
+```
+
+## Contributing
+
+1. Create a new branch for your feature
+2. Make your changes
+3. Run tests and ensure they pass
+4. Submit a merge request
+
+## Code Style
+
+The project uses Checkstyle to enforce code quality. Key requirements:
+
+- All test classes must have `@Epic` and `@Feature` annotations
+- All test methods must have:
+    - `@Test`
+    - `@Description`
+    - `@Story`
+    - `@Severity`
+
+## Support
+
+For any questions or issues, please contact the QA team or create an issue in the project repository.
+
+## License
+
+This project is proprietary and confidential. Unauthorized copying or distribution is prohibited.
 
 ## Getting started
 
@@ -11,18 +154,18 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 ## Add your files
 
 - [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.leegality.com/automation-tests/atlas.git
+git remote add origin https://gitlab.leegality.com/automation-tests/rest-automation.git
 git branch -M master
 git push -uf origin master
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.leegality.com/automation-tests/atlas/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.leegality.com/automation-tests/rest-automation/-/settings/integrations)
 
 ## Collaborate with your team
 
@@ -30,13 +173,13 @@ git push -uf origin master
 - [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
 - [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
 - [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
 ## Test and Deploy
 
 Use the built-in continuous integration in GitLab.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
+- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
 - [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
 - [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
 - [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
