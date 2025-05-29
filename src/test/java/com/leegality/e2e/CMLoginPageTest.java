@@ -19,7 +19,7 @@ import static io.qameta.allure.Allure.step;
 public final class CMLoginPageTest extends BaseTest {
 
     public static final String CONSENT_MANAGER_URL = "https://dev.consent.in/dashboard";
-    public static final String CONSENT_MANAGER_LANDING_URL = "https://dev.consent.in/landing";
+    public static final String CONSENT_MANAGER_LANDING_URL = "https://dev.consent.in/dashboard/consent/profiles";
     public static final String CM_E2E_USER = getEnvVariable("CM_E2E_USER");
     public static final String CM_E2E_PWD = getEnvVariable("CM_E2E_PWD");
 
