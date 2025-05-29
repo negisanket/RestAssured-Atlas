@@ -12,6 +12,7 @@ import java.util.Base64;
 import java.util.Map;
 
 import static com.leegality.atlas.utils.CommonMethods.getSecrets;
+import static com.leegality.atlas.utils.CommonMethods.getStandardUrl;
 import static com.leegality.atlas.utils.Constants.AUTH_HEADER;
 import static com.leegality.atlas.utils.Constants.BASIC;
 import static com.leegality.atlas.utils.Constants.BEARER;
@@ -20,7 +21,6 @@ import static com.leegality.atlas.utils.Constants.CLIENT_SECRET;
 import static com.leegality.atlas.utils.Constants.DEFAULT_E2E_PWD;
 import static com.leegality.atlas.utils.Constants.DEFAULT_E2E_USER;
 import static com.leegality.atlas.utils.Constants.OAUTH_LOGIN_ENDPOINT;
-import static com.leegality.atlas.utils.Constants.STANDARD_URL;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 
@@ -55,7 +55,7 @@ public class BaseApi {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .addHeader(AUTH_HEADER, BEARER + accessToken)
                 .addFilter(allureFilter)
-                .setBaseUri(STANDARD_URL)
+                .setBaseUri(getStandardUrl())
                 .setAccept(ContentType.JSON)
                 .setContentType(ContentType.JSON)
                 .setUrlEncodingEnabled(false)
@@ -67,8 +67,8 @@ public class BaseApi {
     /**
      * Retrieves an access token for a user using username and password.
      *
-     * @param username The user's username
-     * @param password The user's password
+     * @param username   The user's username
+     * @param password   The user's password
      * @param statusCode Expected HTTP status code
      * @return String containing the access token
      */
@@ -85,7 +85,7 @@ public class BaseApi {
             String pwd = secrets.get(password).toString();
             accessToken = getAccessToken(clientCred, userId, pwd, statusCode);
         } catch (Exception e) {
-            step("Couldn't get access token");
+            step("Couldn't get access token: " + e.getCause());
         }
         return accessToken;
     }
@@ -94,8 +94,8 @@ public class BaseApi {
      * Retrieves an access token using client credentials and user authentication.
      *
      * @param clientCred Base64 encoded client credentials
-     * @param userId The user's ID
-     * @param pwd The user's password
+     * @param userId     The user's ID
+     * @param pwd        The user's password
      * @param statusCode Expected HTTP status code
      * @return String containing the access token
      */
@@ -121,7 +121,7 @@ public class BaseApi {
     /**
      * Validates that a response has the expected status code.
      *
-     * @param response The Response object to validate
+     * @param response   The Response object to validate
      * @param statusCode The expected HTTP status code
      * @return Response object for chaining
      * @throws AssertionError if the status code doesn't match

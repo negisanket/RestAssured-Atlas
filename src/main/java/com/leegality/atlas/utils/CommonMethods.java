@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import static com.leegality.atlas.utils.Constants.AWS_REGION;
 import static com.leegality.atlas.utils.Constants.SECRET_BUCKET;
+import static io.qameta.allure.Allure.step;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -29,6 +30,36 @@ public final class CommonMethods {
     }
 
     /**
+     * Gets the STANDARD_URL from environment variables.
+     * If STANDARD_URL is not set, defaults to "<a href="https://dev-gateway.leegality.com">...</a>".
+     *
+     * @return STANDARD_URL from environment variables or default value
+     */
+    public static String getStandardUrl() {
+        return getEnvVariable("STANDARD_URL", "https://dev-gateway.leegality.com");
+    }
+
+    /**
+     * Gets the DEFAULT_ENVIRONMENT from environment variables.
+     * If DEFAULT_ENVIRONMENT is not set, defaults to "dev".
+     *
+     * @return DEFAULT_ENVIRONMENT from environment variables or default value
+     */
+    public static String getEnvironment() {
+        return getEnvVariable("DEFAULT_ENVIRONMENT", "dev");
+    }
+
+    /**
+     * Gets the application name from environment variables.
+     * If APP_NAME is not set, defaults to "atlas".
+     *
+     * @return Application name from environment variables or default value
+     */
+    public static String getAppName() {
+        return getEnvVariable("APP_NAME", "atlas");
+    }
+
+    /**
      * Retrieves secrets from AWS Secrets Manager.
      *
      * @return Map containing the retrieved secrets, where both keys and values are Strings
@@ -39,10 +70,12 @@ public final class CommonMethods {
                 .region(Region.of(AWS_REGION))
                 .build()) {
 
+            String secretsBucket = SECRET_BUCKET + getAppName();
             GetSecretValueRequest getSecretValueRequest = GetSecretValueRequest.builder()
-                    .secretId(SECRET_BUCKET)
+                    .secretId(secretsBucket)
                     .build();
 
+            step("SecretBucket: " + secretsBucket);
             secret = client.getSecretValue(getSecretValueRequest).secretString();
             return objectMapper.readValue(secret, new TypeReference<>() {
             });
