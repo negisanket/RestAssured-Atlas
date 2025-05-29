@@ -3,20 +3,28 @@ plugins {
     `maven-publish`
     pmd
     checkstyle
+    id("fr.brouillard.oss.gradle.jgitver") version "0.10.0-rc03"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
+val appName = "atlas"
+val codeArtifactUrl: String by project
 group = "com.leegality"
-version = "1.0.0"
 
 repositories {
-    gradlePluginPortal()
     mavenCentral()
     mavenLocal()
     maven {
-        url = uri("${System.getenv("CODEARTIFACT_URL")}")
+        url = uri(codeArtifactUrl)
         credentials.username = "aws"
         credentials.password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
     }
+}
+
+gradle.startParameter.isContinueOnFailure = true
+
+tasks.jar {
+    enabled = true
 }
 
 // Define configuration for AspectJ agent
@@ -96,6 +104,19 @@ fun Test.configureAgent() {
     )
 }
 
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveBaseName.set(appName)
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+val javadocJar by tasks.registering(Jar::class, fun Jar.() {
+    archiveBaseName.set(appName)
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Javadoc JAR"
+    archiveClassifier.set("javadoc")
+    from(sourceSets.main.get().allJava)
+})
+
 java {
     withSourcesJar()
     withJavadocJar()
@@ -105,42 +126,30 @@ java {
 
 publishing {
     publications {
-        create<MavenPublication>("library") {
-            from(components["java"])
+        create<MavenPublication>("shadow") {
+            //project.shadow.component(this)
+            artifactId = appName
+            artifact(sourcesJar)
+            artifact(javadocJar)
 
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
             pom {
                 name.set("atlas")
+                packaging = "jar"
                 description.set("ATLAS - Automated Testing Library for API and Selenium")
-                url.set("https://gitlab.leegality.com/automation-tests/atlas")
-
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://gitlab.leegality.com/automation-tests/atlas.git")
-                    developerConnection.set("scm:git:ssh://gitlab.leegality.com/automation-tests/atlas.git")
-                    url.set("https://gitlab.leegality.com/automation-tests/atlas")
-                }
-
-                developers {
-                    developer {
-                        id.set("leegality")
-                        name.set("Leegality")
-                        email.set("QOPS@leegality.com")
-                        organization.set("Leegality")
-                        organizationUrl.set("https://www.leegality.com")
-                    }
-                }
             }
         }
     }
     repositories {
         maven {
-            url = uri("${System.getenv("CODEARTIFACT_URL")}")
+            url = uri(codeArtifactUrl)
             credentials.username = "aws"
             credentials.password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
         }
