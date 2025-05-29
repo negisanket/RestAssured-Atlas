@@ -60,7 +60,6 @@ cd atlas
 4. Generate Allure report:
 ```bash
 ./gradlew allureReport
-./gradlew allureServe
 ```
 
 ## Project Structure

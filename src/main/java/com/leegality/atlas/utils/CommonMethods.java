@@ -56,7 +56,7 @@ public final class CommonMethods {
      * @return Application name from environment variables or default value
      */
     public static String getAppName() {
-        return getEnvVariable("APP_NAME", "atlas");
+        return getEnvVariable("E2E_APP_NAME", "atlas");
     }
 
     /**
@@ -87,7 +87,7 @@ public final class CommonMethods {
     /**
      * Gets an environment variable with a default fallback value.
      *
-     * @param variable The name of the environment variable
+     * @param variable     The name of the environment variable
      * @param defaultValue The default value to return if the variable is not set
      * @return The value of the environment variable or the default value
      */
@@ -103,7 +103,6 @@ public final class CommonMethods {
      * @param variable the name of the environment variable to retrieve
      * @return the value of the environment variable if it exists and is not blank
      * @throws RuntimeException if the environment variable is not set or is blank
-     *
      * @see System#getenv(String)
      * @see org.apache.commons.lang3.StringUtils#isNotBlank(CharSequence)
      */
