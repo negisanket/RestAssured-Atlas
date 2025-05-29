@@ -29,11 +29,11 @@ tasks.jar {
     enabled = true
 }
 
-// Define configuration for AspectJ agent
+/*// Define configuration for AspectJ agent
 val agent: Configuration by configurations.creating {
     isCanBeConsumed = true
     isCanBeResolved = true
-}
+}*/
 
 dependencies {
     configurations.all {
@@ -44,21 +44,22 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
-    // Platform dependencies
-    implementation(platform(libs.test.allure.bom))
     implementation(platform(libs.aws.sdk))
+    implementation(libs.secret.manager)
+
+    // Allure dependencies
+    implementation(platform(libs.test.allure.bom))
+    implementation(libs.allure.testng)
+    implementation(libs.allure.rest.assured)
 
     // Core dependencies that are essential and should be bundled
     implementation(libs.apache.commons)
     implementation(libs.jackson.databind)
     implementation(libs.jackson.jsr310)
-    implementation(libs.secret.manager)
     implementation(libs.jakarta.rs.api)
 
     // Dependencies that should be provided by the consuming project
     compileOnly(libs.rest.assured)
-    compileOnly(libs.allure.testng)
-    compileOnly(libs.allure.rest.assured)
     compileOnly(libs.testng)
     compileOnly(libs.selenium.java)
     compileOnly(libs.webdrivermanager)
@@ -71,8 +72,8 @@ dependencies {
     testImplementation(libs.allure.testng)
     testImplementation(libs.allure.rest.assured)
 
-    // Agent configuration
-    agent(libs.aspectj.weaver)
+    /* Agent configuration
+     agent(libs.aspectj.weaver)*/
 }
 
 pmd {
@@ -88,7 +89,7 @@ checkstyle {
 }
 
 tasks.test {
-    configureAgent()
+    //configureAgent()
     configureDetailedTestLogging()
     useTestNG()
     maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
@@ -107,12 +108,12 @@ fun Test.configureDetailedTestLogging() {
     }
 }
 
-fun Test.configureAgent() {
+/*fun Test.configureAgent() {
     // Configure javaagent for test execution
     jvmArgs = listOf(
         "-javaagent:${agent.singleFile}"
     )
-}
+}*/
 
 val sourcesJar by tasks.registering(Jar::class) {
     archiveBaseName.set(appName)
@@ -130,37 +131,6 @@ val javadocJar by tasks.registering(Jar::class, fun Jar.() {
 tasks.withType<ShadowJar>() {
     archiveBaseName = appName
     archiveClassifier.set("")
-    
-    minimize {
-        // Exclude these packages from minimization to prevent runtime issues
-        exclude(dependency("com.fasterxml.jackson.*:.*"))
-        exclude(dependency("org.apache.commons:commons-lang3"))
-    }
-    
-    // Merge service files
-    mergeServiceFiles()
-    
-    // Exclude unnecessary files
-    exclude("META-INF/*.SF")
-    exclude("META-INF/*.DSA")
-    exclude("META-INF/*.RSA")
-    exclude("META-INF/*.MF")
-    exclude("META-INF/LICENSE*")
-    exclude("META-INF/NOTICE*")
-    exclude("META-INF/DEPENDENCIES*")
-    exclude("META-INF/maven/**")
-    exclude("META-INF/versions/**")
-    exclude("**/*.txt")
-    exclude("**/*.properties")
-    exclude("**/*.xml")
-    exclude("**/*.html")
-    exclude("**/*.md")
-    exclude("**/module-info.class")
-    exclude("**/package-info.class")
-    
-    // Relocate common libraries to avoid conflicts
-    relocate("com.fasterxml.jackson", "com.leegality.shaded.jackson")
-    relocate("org.apache.commons", "com.leegality.shaded.commons")
 }
 
 java {

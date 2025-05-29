@@ -31,8 +31,8 @@ jackson-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr
 jakarta-rs-api = { module = "jakarta.ws.rs:jakarta.ws.rs-api", version.ref = "jakarta-rs-api-version" }
 
 # Testing dependencies
-allure-testng = { module = "io.qameta.allure:allure-testng" }
-allure-rest-assured = { module = "io.qameta.allure:allure-rest-assured" }
+allure-testng = { module = "io.qameta.allure:allure-testng", version.ref = "test-allure-bom-version" }
+allure-rest-assured = { module = "io.qameta.allure:allure-rest-assured", version.ref = "test-allure-bom-version" }
 
 # Selenium dependencies
 selenium-java = { module = "org.seleniumhq.selenium:selenium-java", version.ref = "selenium-version" }
