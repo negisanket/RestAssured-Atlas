@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import static com.leegality.atlas.utils.CommonMethods.getEnvVariable;
+
 /**
  * Base test class that provides common functionality for all test classes.
  * This class handles WebDriver setup, test configuration, and common test operations.
@@ -57,7 +59,7 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     @Step("Initialize Driver")
     public void setUp() {
-        if (StringUtils.equalsIgnoreCase(properties.get("environment").toString(), "local")) {
+        if (StringUtils.equalsIgnoreCase(getEnvVariable("ENV", "local"), "local")) {
             autoOpenLocalChrome(); //run locally on chrome
         } else {
             autoOpenBrowser(); //run on LambdaTest HyperExecute
@@ -90,7 +92,7 @@ public class BaseTest {
             lambdaTestStatus = "passed";
         }
 
-        if (!StringUtils.equalsIgnoreCase(properties.get("environment").toString(), "local")) {
+        if (!StringUtils.equalsIgnoreCase(getEnvVariable("ENV", "local"), "local")) {
             ((JavascriptExecutor) driver).executeScript("lambda-status=" + lambdaTestStatus);
         }
 

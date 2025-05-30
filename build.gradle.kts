@@ -29,11 +29,11 @@ tasks.jar {
     enabled = true
 }
 
-/*// Define configuration for AspectJ agent
+// Define configuration for AspectJ agent
 val agent: Configuration by configurations.creating {
     isCanBeConsumed = true
     isCanBeResolved = true
-}*/
+}
 
 dependencies {
     configurations.all {
@@ -72,8 +72,8 @@ dependencies {
     testImplementation(libs.allure.rest.assured)
     testImplementation(libs.secret.manager)
 
-    /* Agent configuration
-     agent(libs.aspectj.weaver)*/
+     //Agent configuration
+     agent(libs.aspectj.weaver)
 }
 
 pmd {
@@ -89,10 +89,30 @@ checkstyle {
 }
 
 tasks.test {
-    //configureAgent()
+    configureAgent()
     configureDetailedTestLogging()
     useTestNG()
     maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
+    finalizedBy("allureReport")
+}
+
+tasks.register<Exec>("allureReport") {
+    description = "Generate Allure report from test results"
+    group = "reporting"
+
+    // Only run if allure-results directory exists
+    onlyIf {
+        file("./build/allure-results").exists()
+    }
+
+    workingDir = projectDir
+    commandLine = listOf(
+        "allure", "generate", "./build/allure-results", "--clean"
+    )
+
+    // Add standard output and error logging
+    standardOutput = System.out
+    errorOutput = System.err
 }
 
 private val TEST_EXCEPTION_FORMAT = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
@@ -108,12 +128,12 @@ fun Test.configureDetailedTestLogging() {
     }
 }
 
-/*fun Test.configureAgent() {
+fun Test.configureAgent() {
     // Configure javaagent for test execution
     jvmArgs = listOf(
         "-javaagent:${agent.singleFile}"
     )
-}*/
+}
 
 val sourcesJar by tasks.registering(Jar::class) {
     archiveBaseName.set(appName)

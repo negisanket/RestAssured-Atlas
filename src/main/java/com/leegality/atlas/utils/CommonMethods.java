@@ -56,7 +56,7 @@ public final class CommonMethods {
      * @return Application name from environment variables or default value
      */
     public static String getAppName() {
-        return getEnvVariable("E2E_APP_NAME", "atlas");
+        return getEnvVariable("E2E_APP_NAME");
     }
 
     /**
