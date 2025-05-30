@@ -1,7 +1,5 @@
 package com.leegality.atlas.api.testdto.response;
 
-import java.time.LocalDateTime;
-
 /**
  * Data Transfer Object representing state data in API responses.
  * Contains detailed information about a state.
@@ -12,10 +10,10 @@ public final class StateData {
     public String id;
 
     /** Timestamp when the state was created. */
-    public LocalDateTime createdAt;
+    public String createdAt;
 
     /** Timestamp when the state was last updated. */
-    public LocalDateTime updatedAt;
+    public String updatedAt;
 
     /** The name of the state. */
     public String name;
