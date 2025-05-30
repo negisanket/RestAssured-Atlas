@@ -7,10 +7,10 @@ rest-assured-version = "5.4.0"
 apache-commons-version = "3.14.0"
 jackson-databind-version = "2.16.1"
 secret-manager-version = "2.30.0"
-lombok-version = "1.18.30"
+lombok-version = "1.18.38"
 jakarta-rs-api-version = "3.1.0"
 selenium-version = "4.18.1"
-webdrivermanager-version = "6.0.0"
+webdrivermanager-version = "6.1.0"
 commons-codec-version = "1.15"
 
 [libraries]

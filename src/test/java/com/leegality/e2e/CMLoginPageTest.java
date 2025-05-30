@@ -20,8 +20,6 @@ public final class CMLoginPageTest extends BaseTest {
 
     public static final String CONSENT_MANAGER_URL = "https://dev.consent.in/dashboard";
     public static final String CONSENT_MANAGER_LANDING_URL = "https://dev.consent.in/dashboard/consent/profiles";
-    public static final String CM_E2E_USER = getEnvVariable("CM_E2E_USER");
-    public static final String CM_E2E_PWD = getEnvVariable("CM_E2E_PWD");
 
     CMLoginPage cmLoginPage = new CMLoginPage(driver);
 
@@ -33,8 +31,11 @@ public final class CMLoginPageTest extends BaseTest {
         step("Open CM Page");
         cmLoginPage.openURL(CONSENT_MANAGER_URL);
 
-        step("Login In using: " + CM_E2E_USER + "&" + CM_E2E_PWD);
-        cmLoginPage.signIn(CM_E2E_USER, CM_E2E_PWD);
+        String cmE2EUser = getEnvVariable("CM_E2E_USER");
+        String cmE2EPwd = getEnvVariable("CM_E2E_PWD");
+
+        step("Login In using: " + cmE2EUser + " & " + cmE2EPwd);
+        cmLoginPage.signIn(cmE2EUser, cmE2EPwd);
 
         step("Wait for avatar");
         cmLoginPage.waitForAvatar();

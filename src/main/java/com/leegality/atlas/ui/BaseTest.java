@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import static com.leegality.atlas.utils.CommonMethods.getEnvVariable;
+
 /**
  * Base test class that provides common functionality for all test classes.
  * This class handles WebDriver setup, test configuration, and common test operations.
@@ -34,9 +36,6 @@ public class BaseTest {
 
     /** Logger instance for test logging. */
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-
-    /** Properties instance containing test configuration. */
-    public static Properties properties = propertiesLoad();
 
     /** WebDriver instance for browser automation. */
     public static WebDriver driver;
@@ -57,7 +56,7 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     @Step("Initialize Driver")
     public void setUp() {
-        if (StringUtils.equalsIgnoreCase(properties.get("environment").toString(), "local")) {
+        if (StringUtils.equalsIgnoreCase(getEnvVariable("ENV", "local"), "local")) {
             autoOpenLocalChrome(); //run locally on chrome
         } else {
             autoOpenBrowser(); //run on LambdaTest HyperExecute
@@ -90,7 +89,7 @@ public class BaseTest {
             lambdaTestStatus = "passed";
         }
 
-        if (!StringUtils.equalsIgnoreCase(properties.get("environment").toString(), "local")) {
+        if (!StringUtils.equalsIgnoreCase(getEnvVariable("ENV", "local"), "local")) {
             ((JavascriptExecutor) driver).executeScript("lambda-status=" + lambdaTestStatus);
         }
 
@@ -101,7 +100,7 @@ public class BaseTest {
      * Loads test properties from the environment configuration file.
      * @return Properties instance containing test configuration
      */
-    public static Properties propertiesLoad() {
+    public static Properties envLocalProperties() {
         Properties properties = new Properties();
         String envFile = "src/test/resources/env_local.properties";
         File file = new File(envFile);
