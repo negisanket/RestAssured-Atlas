@@ -37,9 +37,6 @@ public class BaseTest {
     /** Logger instance for test logging. */
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /** Properties instance containing test configuration. */
-    public static Properties properties = propertiesLoad();
-
     /** WebDriver instance for browser automation. */
     public static WebDriver driver;
 
@@ -103,7 +100,7 @@ public class BaseTest {
      * Loads test properties from the environment configuration file.
      * @return Properties instance containing test configuration
      */
-    public static Properties propertiesLoad() {
+    public static Properties envLocalProperties() {
         Properties properties = new Properties();
         String envFile = "src/test/resources/env_local.properties";
         File file = new File(envFile);
