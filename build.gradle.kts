@@ -44,19 +44,17 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
-    implementation(platform(libs.aws.sdk))
-    implementation(libs.secret.manager)
+    compileOnly(platform(libs.aws.sdk))
+    compileOnly(libs.secret.manager)
 
     // Allure dependencies
     implementation(platform(libs.test.allure.bom))
-    implementation(libs.allure.testng)
-    implementation(libs.allure.rest.assured)
+    compileOnly(libs.allure.testng)
+    compileOnly(libs.allure.rest.assured)
 
     // Core dependencies that are essential and should be bundled
-    implementation(libs.apache.commons)
-    implementation(libs.jackson.databind)
-    implementation(libs.jackson.jsr310)
-    implementation(libs.jakarta.rs.api)
+    compileOnly(libs.apache.commons)
+    compileOnly(libs.jackson.databind)
 
     // Dependencies that should be provided by the consuming project
     compileOnly(libs.rest.assured)
@@ -66,11 +64,13 @@ dependencies {
 
     // Test dependencies
     testImplementation(libs.rest.assured)
+    testImplementation(libs.jakarta.rs.api)
     testImplementation(libs.testng)
     testImplementation(libs.selenium.java)
     testImplementation(libs.webdrivermanager)
     testImplementation(libs.allure.testng)
     testImplementation(libs.allure.rest.assured)
+    testImplementation(libs.secret.manager)
 
     /* Agent configuration
      agent(libs.aspectj.weaver)*/

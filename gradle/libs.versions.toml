@@ -6,9 +6,8 @@ testng-version = "7.9.0"
 rest-assured-version = "5.4.0"
 apache-commons-version = "3.14.0"
 jackson-databind-version = "2.16.1"
-secret-manager-version = "2.24.0"
+secret-manager-version = "2.30.0"
 lombok-version = "1.18.30"
-jsr310-version = "2.16.1"
 jakarta-rs-api-version = "3.1.0"
 selenium-version = "4.18.1"
 webdrivermanager-version = "6.0.0"
@@ -27,7 +26,6 @@ apache-commons = { module = "org.apache.commons:commons-lang3", version.ref = "a
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind-version" }
 secret-manager = { module = "software.amazon.awssdk:secretsmanager", version.ref = "secret-manager-version" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version" }
-jackson-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jsr310-version" }
 jakarta-rs-api = { module = "jakarta.ws.rs:jakarta.ws.rs-api", version.ref = "jakarta-rs-api-version" }
 
 # Testing dependencies
