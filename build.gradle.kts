@@ -73,7 +73,7 @@ dependencies {
     testImplementation(libs.secret.manager)
 
      //Agent configuration
-     agent(libs.aspectj.weaver)
+     // agent(libs.aspectj.weaver)
 }
 
 pmd {
@@ -89,7 +89,7 @@ checkstyle {
 }
 
 tasks.test {
-    configureAgent()
+    //configureAgent()
     configureDetailedTestLogging()
     useTestNG()
     maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
@@ -99,11 +99,6 @@ tasks.test {
 tasks.register<Exec>("allureReport") {
     description = "Generate Allure report from test results"
     group = "reporting"
-
-    // Only run if allure-results directory exists
-    onlyIf {
-        file("./build/allure-results").exists()
-    }
 
     workingDir = projectDir
     commandLine = listOf(
@@ -156,8 +151,8 @@ tasks.withType<ShadowJar>() {
 java {
     withSourcesJar()
     withJavadocJar()
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_24
+    targetCompatibility = JavaVersion.VERSION_24
 }
 
 publishing {
