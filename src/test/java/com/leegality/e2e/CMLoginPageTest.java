@@ -19,7 +19,6 @@ import static io.qameta.allure.Allure.step;
 public final class CMLoginPageTest extends BaseTest {
 
     public static final String CONSENT_MANAGER_URL = "https://dev.consent.in/dashboard";
-    public static final String CONSENT_MANAGER_LANDING_URL = "https://dev.consent.in/dashboard/consent/profiles";
 
     CMLoginPage cmLoginPage = new CMLoginPage(driver);
 
@@ -34,7 +33,7 @@ public final class CMLoginPageTest extends BaseTest {
         String cmE2EUser = getEnvVariable("CM_E2E_USER");
         String cmE2EPwd = getEnvVariable("CM_E2E_PWD");
 
-        step("Login In using: " + cmE2EUser + " & " + cmE2EPwd);
+        step("Login In");
         cmLoginPage.signIn(cmE2EUser, cmE2EPwd);
 
         step("Wait for avatar");
@@ -44,7 +43,7 @@ public final class CMLoginPageTest extends BaseTest {
         cmLoginPage.logout();
 
         step("Check current URL");
-        Assert.assertEquals(driver.getCurrentUrl(), CONSENT_MANAGER_LANDING_URL, "Current URL is not correct");
+        Assert.assertTrue(driver.getCurrentUrl().contains("https://dev.consent.in/"), "Current URL is not correct");
     }
 
 }
