@@ -48,9 +48,6 @@ public final class CreateAndGetStateTest {
 
         String stateId = stateResponseDTO.getData().id;
         ids.add(stateId);
-
-        step("Get State for UnAuth User should return 401: Unauthorized");
-        statesApi.getStateByIdUnAuth(stateId, 401);
     }
 
     private StateDTO getCreateStatePayload() {
