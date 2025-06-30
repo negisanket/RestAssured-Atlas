@@ -127,12 +127,17 @@ public class BaseApi {
         return accessToken;
     }
 
-    @Step("Validate response status code")
+    @Step("Validate response time and status code")
     public Response validateStatusCode(Response response, Long timeInMilliSec, int statusCode) {
         // Validate the response time
         if (timeInMilliSec != null) {
             response.then().time(lessThan(timeInMilliSec), TimeUnit.MILLISECONDS);
         }
+        return response.then().statusCode(statusCode).extract().response();
+    }
+
+    @Step("Validate response status code")
+    public Response validateStatusCode(Response response, int statusCode) {
         return response.then().statusCode(statusCode).extract().response();
     }
 
