@@ -19,6 +19,9 @@ public final class Constants {
     public static final String OAUTH_APP_LOGIN_ENDPOINT = String.format("https://%s-gateway.leegality.com/auth/app/login",
             getEnvironment());
 
+    public static final String MAIN_APP_LOGIN_ENDPOINT = String.format("https://%s.leegality.com/api/v2/login",
+            getEnvironment());
+
     public static final String CLIENT_ID = "CLIENT_ID";
 
     public static final String SCOPE = "SCOPE";
