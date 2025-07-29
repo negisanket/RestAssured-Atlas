@@ -1,6 +1,7 @@
 package com.leegality.atlas.api;
 
 import com.leegality.atlas.api.commondto.response.AccessTokenDTO;
+import com.leegality.atlas.api.commondto.response.LoginResponseDTO;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -21,6 +22,7 @@ import static com.leegality.atlas.utils.Constants.CLIENT_ID;
 import static com.leegality.atlas.utils.Constants.CLIENT_SECRET;
 import static com.leegality.atlas.utils.Constants.E2E_PWD;
 import static com.leegality.atlas.utils.Constants.E2E_USER;
+import static com.leegality.atlas.utils.Constants.MAIN_APP_LOGIN_ENDPOINT;
 import static com.leegality.atlas.utils.Constants.OAUTH_APP_LOGIN_ENDPOINT;
 import static com.leegality.atlas.utils.Constants.OAUTH_LOGIN_ENDPOINT;
 import static com.leegality.atlas.utils.Constants.SCOPE;
@@ -38,6 +40,11 @@ public class BaseApi {
 
     public RequestSpecification buildUserRequest() {
         String token = getUserAccessToken();
+        return buildRequestWithToken(token);
+    }
+
+    public RequestSpecification buildMainAppUserRequest() {
+        String token = getMainAppUserAccessToken();
         return buildRequestWithToken(token);
     }
 
@@ -121,6 +128,39 @@ public class BaseApi {
                     .as(AccessTokenDTO.class);
 
             accessToken = token.getAccessToken();
+        } catch (Exception e) {
+            step("Couldn't get access token using user and password: " + e.getCause());
+        }
+        return accessToken;
+    }
+
+    @Step("Get Main App User Access Token")
+    private String getMainAppUserAccessToken() {
+        Map<String, String> secrets = getSecrets();
+        String accessToken = null;
+        try {
+            String userId = secrets.get(E2E_USER);
+            String pwd = secrets.get(E2E_PWD);
+
+            String requestBody = String.format(
+                    "{\"username\":\"%s\",\"password\":\"%s\"}",
+                    userId, pwd
+            );
+
+            LoginResponseDTO token = given()
+                    .header("Content-Type", "application/json")
+                    .body(requestBody)
+                    .when()
+                    .post(MAIN_APP_LOGIN_ENDPOINT)
+                    .then()
+                    .log().ifValidationFails()
+                    .statusCode(200)
+                    .extract()
+                    .response()
+                    .getBody()
+                    .as(LoginResponseDTO.class);
+
+            accessToken = token.getData().getAccessToken();
         } catch (Exception e) {
             step("Couldn't get access token using user and password: " + e.getCause());
         }
