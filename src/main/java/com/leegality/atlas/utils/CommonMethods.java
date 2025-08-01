@@ -51,7 +51,6 @@ public final class CommonMethods {
 
     /**
      * Gets the application name from environment variables.
-     * If APP_NAME is not set, defaults to "atlas".
      *
      * @return Application name from environment variables or default value
      */

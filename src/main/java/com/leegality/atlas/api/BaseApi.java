@@ -10,6 +10,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +27,7 @@ import static com.leegality.atlas.utils.Constants.MAIN_APP_LOGIN_ENDPOINT;
 import static com.leegality.atlas.utils.Constants.OAUTH_APP_LOGIN_ENDPOINT;
 import static com.leegality.atlas.utils.Constants.OAUTH_LOGIN_ENDPOINT;
 import static com.leegality.atlas.utils.Constants.SCOPE;
+import static com.leegality.atlas.utils.Constants.X_AUTH_TOKEN;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.lessThan;
@@ -55,6 +57,7 @@ public class BaseApi {
 
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .addHeader(AUTH_HEADER, BEARER + accessToken)
+                .addHeader(X_AUTH_TOKEN, accessToken)
                 .addFilter(allureFilter)
                 .setBaseUri(getStandardUrl())
                 .setAccept(ContentType.JSON)
@@ -102,17 +105,17 @@ public class BaseApi {
     }
 
     @Step("Get User Access Token")
-    private String getUserAccessToken() {
+    public String getUserAccessToken() {
         Map<String, String> secrets = getSecrets();
         String accessToken = null;
         try {
             String userId = secrets.get(E2E_USER);
             String pwd = secrets.get(E2E_PWD);
 
-            String requestBody = String.format(
-                    "{\"username\":\"%s\",\"password\":\"%s\",\"type\":\"q\"}",
-                    userId, pwd
-            );
+            Map<String, String> requestBody = new HashMap<>();
+            requestBody.put("username", userId);
+            requestBody.put("password", pwd);
+            requestBody.put("type", "q");
 
             AccessTokenDTO token = given()
                     .header("Content-Type", "application/json")
@@ -135,17 +138,16 @@ public class BaseApi {
     }
 
     @Step("Get Main App User Access Token")
-    private String getMainAppUserAccessToken() {
+    public String getMainAppUserAccessToken() {
         Map<String, String> secrets = getSecrets();
         String accessToken = null;
         try {
             String userId = secrets.get(E2E_USER);
             String pwd = secrets.get(E2E_PWD);
 
-            String requestBody = String.format(
-                    "{\"username\":\"%s\",\"password\":\"%s\"}",
-                    userId, pwd
-            );
+            Map<String, String> requestBody = new HashMap<>();
+            requestBody.put("username", userId);
+            requestBody.put("password", pwd);
 
             LoginResponseDTO token = given()
                     .header("Content-Type", "application/json")
