@@ -47,17 +47,24 @@ public class BaseApi {
 
     public RequestSpecification buildMainAppUserRequest() {
         String token = getMainAppUserAccessToken();
-        return buildRequestWithToken(token);
+        return buildMainAppRequestWithToken(token);
+    }
+
+    public RequestSpecification buildMainAppRequestWithToken(String accessToken) {
+        return buildRequestWithToken(accessToken, X_AUTH_TOKEN, "");
     }
 
     public RequestSpecification buildRequestWithToken(String accessToken) {
+        return buildRequestWithToken(accessToken, AUTH_HEADER, BEARER);
+    }
+
+    private RequestSpecification buildRequestWithToken(String accessToken, String headerName, String headerPrefix) {
         final AllureRestAssured allureFilter = new AllureRestAssured()
                 .setRequestAttachmentName("Request")
                 .setResponseAttachmentName("Response");
 
         RequestSpecification requestSpecification = new RequestSpecBuilder()
-                .addHeader(AUTH_HEADER, BEARER + accessToken)
-                .addHeader(X_AUTH_TOKEN, accessToken)
+                .addHeader(headerName, headerPrefix + accessToken)
                 .addFilter(allureFilter)
                 .setBaseUri(getStandardUrl())
                 .setAccept(ContentType.JSON)
