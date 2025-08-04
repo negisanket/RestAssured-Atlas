@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 
 
 public final class StatesApi extends BaseApi {
-    private static final String STATES_PATH = "/digital-stamping/v1/states";
+    private static final String STATES_PATH = "/states";
     private static final String STATES_PATH_BY_ID = STATES_PATH + "/%s";
 
     private static final long TIME_IN_MILLI_SEC = 1000L;

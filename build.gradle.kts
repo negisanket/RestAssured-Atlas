@@ -73,7 +73,7 @@ dependencies {
     testImplementation(libs.secret.manager)
 
      //Agent configuration
-     // agent(libs.aspectj.weaver)
+     agent(libs.aspectj.weaver)
 }
 
 pmd {
@@ -89,7 +89,7 @@ checkstyle {
 }
 
 tasks.test {
-    //configureAgent()
+    configureAgent()
     configureDetailedTestLogging()
     useTestNG()
     maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
