@@ -13,7 +13,6 @@ public class LoginResponseDTO {
 
     @Getter
     public static class Data {
-        // Getters and setters
         private String username;
         private String name;
         private String email;
@@ -25,6 +24,7 @@ public class LoginResponseDTO {
         private String organizationId;
         private String departmentId;
         private String organizationUserId;
+        private String brandPicUrl;
         private String brandName;
         private String userRole;
     }
