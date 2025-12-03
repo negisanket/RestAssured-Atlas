@@ -36,6 +36,8 @@ public final class CreateAndGetStateTest {
 
         StateResponseDTO stateResponseDTO =
                 statesApi.createState(payload, Response.Status.OK.getStatusCode()).as(StateResponseDTO.class);
+        String stateId = stateResponseDTO.getData().id;
+        ids.add(stateId);
 
         step("Validate Create State Response");
         assertThat(stateResponseDTO.getCode(), equalTo("LE_DST_001"));
@@ -46,8 +48,7 @@ public final class CreateAndGetStateTest {
         assertThat(stateResponseDTO.getData().createdAt, notNullValue());
         assertThat(stateResponseDTO.getData().updatedAt, notNullValue());
 
-        String stateId = stateResponseDTO.getData().id;
-        ids.add(stateId);
+
     }
 
     private StateDTO getCreateStatePayload() {

@@ -1,0 +1,58 @@
+{
+  "status": "success",
+  "timestamp": "2025-01-15T10:30:20Z",
+  "user": {
+    "id": 1023,
+    "name": "Sanket",
+    "email": "sanket@example.com",
+    "roles": ["admin", "editor", "viewer"],
+    "preferences": {
+      "theme": "dark",
+      "notifications": {
+        "email": true,
+        "sms": false,
+        "push": true
+      }
+    },
+    "addresses": [
+      {
+        "type": "home",
+        "city": "Pune",
+        "zip": 411014,
+        "primary": true
+      },
+      {
+        "type": "office",
+        "city": "Bengaluru",
+        "zip": 560001,
+        "primary": false
+      }
+    ]
+  },
+  "orders": [
+    {
+      "orderId": "ORD9812",
+      "amount": 2499.50,
+      "currency": "INR",
+      "items": [
+        { "name": "Keyboard", "qty": 1 },
+        { "name": "Mouse", "qty": 2 }
+      ],
+      "delivered": true
+    },
+    {
+      "orderId": "ORD9813",
+      "amount": 1599.00,
+      "currency": "INR",
+      "items": [
+        { "name": "Laptop Stand", "qty": 1 }
+      ],
+      "delivered": false
+    }
+  ],
+  "meta": {
+    "totalOrders": 2,
+    "loyaltyPoints": 185,
+    "lastLogin": null
+  }
+}

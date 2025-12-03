@@ -36,6 +36,11 @@ public final class Constants {
 
     public static final String SECRET_BUCKET = String.format("e2e/%s/", getEnvironment());
 
+
+    public static final String MOCK_PATH = "/states";
+    public static final String MOCK_PATH_BY_ID = MOCK_PATH + "/%s";
+
+
     private Constants() {
         // Private constructor to prevent instantiation
     }

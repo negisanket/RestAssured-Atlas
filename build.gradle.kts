@@ -10,17 +10,12 @@ plugins {
 }
 
 val appName = "atlas"
-val codeArtifactUrl: String by project
 group = "com.leegality"
 
 repositories {
     mavenCentral()
     mavenLocal()
-    maven {
-        url = uri(codeArtifactUrl)
-        credentials.username = "aws"
-        credentials.password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
-    }
+
 }
 
 gradle.startParameter.isContinueOnFailure = true
@@ -147,7 +142,11 @@ tasks.withType<ShadowJar>() {
     archiveBaseName = appName
     archiveClassifier.set("")
 }
-
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 java {
     withSourcesJar()
     withJavadocJar()
@@ -180,9 +179,7 @@ publishing {
     }
     repositories {
         maven {
-            url = uri(codeArtifactUrl)
-            credentials.username = "aws"
-            credentials.password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
+
         }
     }
 }
