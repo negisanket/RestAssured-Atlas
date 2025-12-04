@@ -7,10 +7,12 @@ plugins {
     checkstyle
     id("fr.brouillard.oss.gradle.jgitver") version "0.10.0-rc03"
     id("com.github.johnrengelman.shadow") version "7.1.2"
+
+
 }
 
 val appName = "atlas"
-group = "com.leegality"
+group = "com.prac"
 
 repositories {
     mavenCentral()
@@ -66,6 +68,7 @@ dependencies {
     testImplementation(libs.allure.testng)
     testImplementation(libs.allure.rest.assured)
     testImplementation(libs.secret.manager)
+    testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.1")
 
      //Agent configuration
      agent(libs.aspectj.weaver)
@@ -144,7 +147,7 @@ tasks.withType<ShadowJar>() {
 }
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(24)
     }
 }
 java {

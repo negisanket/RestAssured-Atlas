@@ -43,7 +43,7 @@ ATLAS is a comprehensive test automation framework that combines both API and UI
 
 1. Clone the repository:
 ```bash
-git clone https://gitlab.leegality.com/automation-tests/atlas.git
+git clone 
 cd atlas
 ```
 
@@ -68,13 +68,13 @@ cd atlas
 atlas/
 ├── src/
 │   ├── main/java/
-│   │   └── com/leegality/
+│   │   └── com/prac/
 │   │       ├── api/        # API components
 │   │       ├── ui/         # UI components (coming soon)
 │   │       ├── config/     # Configuration management
 │   │       └── utils/      # Utility classes
 │   └── test/java/
-│       └── com/leegality/
+│       └── com/prac/
 │           ├── api/        # API tests
 │           ├── ui/         # UI tests (coming soon)
 │           └── e2e/        # End-to-end tests
@@ -157,14 +157,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.leegality.com/automation-tests/rest-automation.git
+git remote add origin https://gitlab.prac.com/automation-tests/rest-automation.git
 git branch -M master
 git push -uf origin master
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.leegality.com/automation-tests/rest-automation/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.prac.com/automation-tests/rest-automation/-/settings/integrations)
 
 ## Collaborate with your team
 
