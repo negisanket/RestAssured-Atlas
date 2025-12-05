@@ -91,6 +91,8 @@ tasks.test {
     configureDetailedTestLogging()
     useTestNG()
     maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
+    systemProperty("dataproviderthreadcount", maxParallelForks)
+
     finalizedBy("allureReport")
 }
 

@@ -7,6 +7,8 @@ public final class Constants {
 
     public static final String AWS_REGION = "ap-south-1";
 
+    public static final String DEFAULT_BASE = "http://localhost:8080";  // WireMock server
+
     public static final String AUTH_HEADER = "Authorization";
 
     public static final String X_AUTH_TOKEN = "X-Auth-Token";

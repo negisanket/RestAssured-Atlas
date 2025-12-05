@@ -1,16 +1,24 @@
 package com.prac.atlas.api.testdto.request;
 
-
-
+//{
+//        "id": 101,
+//        "name": "Test Group",
+//        "tags": ["alpha", "beta", "gamma"],
+//        "active": true
+//        }
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 public class MockDTO {
     private Integer id;
     private String name;
-    private String email;
-    private Integer age;
+    private List<String> tags;
+    private Boolean active;
 }
+

@@ -1,30 +1,25 @@
 package com.prac.atlas.api.factory;
 
 import com.prac.atlas.api.testdto.request.MockDTO;
+import java.util.List;
 
-import java.util.Map;
+public class MockPayloadFactory {
 
-public final class MockPayloadFactory {
-
-    private MockPayloadFactory() {}
-
-    public static MockDTO defaultPayload() {
+    public static MockDTO getDefaultMockPayload() {
         return MockDTO.builder()
-                .name("Default Name")
-                .email("default@example.com")
-                .age(25)
+                .id(101)
+                .name("Sample User")
+                .tags(List.of("tag1", "tag2"))
+                .active(true)
                 .build();
     }
 
-    public static MockDTO payloadWithOverrides(Map<String, Object> overrides) {
-        MockDTO dto = defaultPayload();
-        overrides.forEach((k, v) -> {
-            switch (k) {
-                case "name" -> dto.setName((String) v);
-                case "email" -> dto.setEmail((String) v);
-                case "age" -> dto.setAge((Integer) v);
-            }
-        });
-        return dto;
+    public static MockDTO getCustomMockPayload(Integer id, String name, List<String> tags, Boolean active) {
+        return MockDTO.builder()
+                .id(id)
+                .name(name)
+                .tags(tags)
+                .active(active)
+                .build();
     }
 }
