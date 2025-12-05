@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="API Regression Suite" verbose="1">
+
+    <listeners>
+        <listener class-name="com.prac.listeners.TestLifecycleListener"/>
+    </listeners>
+
+    <test name="E2E API Tests">
+        <classes>
+            <class name="com.prac.e2e.StoreOrderTest"/>
+        </classes>
+    </test>
+
+</suite>

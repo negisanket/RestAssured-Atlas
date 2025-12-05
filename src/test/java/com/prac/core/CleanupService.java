@@ -23,6 +23,8 @@ public final class CleanupService {
         // register supported resource types and their delete endpoint templates
         // e.g. "mockItem" -> "/mock/items/{id}"
         DELETE_PATHS.put("mockItem", "/mock/items/{id}");
+        DELETE_PATHS.put("order", "/store/order/{id}");
+
         // DELETE_PATHS.put("tenant", "/api/tenants/{id}");
     }
 
